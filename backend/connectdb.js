@@ -1,20 +1,12 @@
-// Import dependencies
-
 const mongoose = require("mongoose");
 
+const db = async () => {
+    try {
+        await mongoose.connect("mongodb+srv://ompalsingh79832:HFrKXMR4HWgZ4b6I@cluster0.ec8kn.mongodb.net/mydatabase");
+        console.log("Database connected successfully");
+    } catch (error) {
+        console.log("Database connection failed");
+    }
+}
 
-const connectDb = async()=>{
-
-
-
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.log("DB Connection Error:", err));
-
-} 
-
-module.exports= {connectDb}
+module.exports = db;

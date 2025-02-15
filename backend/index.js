@@ -8,7 +8,7 @@ const productRoute = require("./route/productRoute")
 require("dotenv").config();
 
 
-const {connectDb} = require("./connectdb")
+const db = require("./connectdb")
 
 // Initialize app
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use("/products", express.static("upload/products"));
 
 
-connectDb();
+db();
 
 app.use("/api", productRoute)  
 

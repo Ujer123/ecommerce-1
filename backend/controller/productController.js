@@ -1,36 +1,80 @@
-const productModel= require("../model/productModel")
 
-const productFilter = async(req, res)=>{
-    try {
-    let { category, search } = req.query;
-    let filter = {};
-    
-    if (category) filter.category = category;
- 
-    if (search) filter.name = { $regex: search, $options: "i" };
-
-    const products = await productModel.find(filter);
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching products", error });
-  }
-
-}
+const productModal = require("../model/productModel");
 
 const addProduct = async(req, res)=>{
-  const { name, image, category, size, color } = req.body;
+  try {
+    const {
+      name,
+      title,
+      size,
+      price,
+      discount,
+      description,
+      color,
+      image,
+      hoverimage,
+      material,
+      application,
+      gender,
+      season,
+      pattern,
+      occasion,
+      type,
+      businesstype,
+    } = req.body;
 
-try {
-  await productModel.create({
-   name, image, category, size, color
-  })
-  res.json({
-    message: "Product Added",
-    success:true
-  })
-} catch (error) {
-  res.status(500).json({ message: "Error fetching products", error });
-}
+    // Create the product in the database
+    const product = await productModal.create({
+      name,
+      title,
+      size,
+      price,
+      discount,
+      description,
+      color,
+      image,
+      hoverimage,
+      material,
+      application,
+      gender,
+      season,
+      pattern,
+      occasion,
+      type,
+      businesstype,
+    });
+
+    return res.status(201).json({
+      message: "Product added successfully",
+      success: true,
+      product,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 }
 
-module.exports={productFilter,addProduct}
+  const getProducts = async(req, res) => {
+    try {
+      const menu = await productModal.find().sort({ createdAt: -1 });
+      return res
+        .status(200)
+        .json({ message: "Product fetched successfully", menu });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+}
+
+const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const menu = await productModal.findById(id);
+    return res
+      .status(200)
+      .json({ message: "product fetched successfully", menu });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports={addProduct, getProducts, getProductById}
