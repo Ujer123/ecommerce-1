@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+html {
+  overflow-x: hidden;
+}
+
+.sec-title h4:before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 22px;
+  width: 50px;
+  height: 1px;
+  background-color: #27497b;
+}
+
+.explore-every-part{
+  background: url('./assets/images/explorepic.jpg');
+  width: 100%;
+  margin: 0;
+  padding: 80px 0;
+  background-position: center;
+  background-size: cover;
+}
+
+.footer-bg{
+  background-image: url('./assets/images/footer-bg.png');
+  width: 100%;
+  margin: 0;
+  padding: 80px 0 0 0;
+  background-position: center;
+  background-size: cover;
+  
+}
+  
