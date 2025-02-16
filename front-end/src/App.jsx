@@ -9,6 +9,7 @@ import OurPartner from './pages/ourpartner/OurPartner'
 import Blog from './pages/blog/Blog'
 import HomeProduct from './components/ProductCard/HomeProduct'
 import ProductPage from './components/ProductCard/ProductDetails'
+import Index from './dashboard'
 
 
 
@@ -26,7 +27,8 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/catalogue" element={<HomeProduct />} />
           <Route path="/product-details/:productId" element={<ProductPage />} />
-          {/* <Route path="/testing" element={<ProductImageHover />} /> */}
+
+          <Route path="/dashboardn" element={<Index />} />
         </Routes>
         <Footer />
       </>
