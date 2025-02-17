@@ -98,7 +98,7 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteProduct } from '../../redux/slices/productSlice';
+// import { deleteProduct } from '../../redux/slices/productSlice';
 import { FaTrash } from 'react-icons/fa';
 
 const AllProducts = () => {
