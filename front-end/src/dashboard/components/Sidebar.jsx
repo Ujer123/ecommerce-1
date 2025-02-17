@@ -30,24 +30,25 @@ const Sidebar = ({ setActivePage, userRole, isOpen, toggleSidebar }) => {
             <button
               className="w-full text-left flex items-center p-2 hover:bg-gray-200 text-white hover:text-black rounded"
               onClick={() => {
-                setActivePage("dashboard");
-                toggleSidebar(); // Close sidebar after selecting
-              }}
-            >
-              <FaTachometerAlt className="mr-2" />
-              Dashboard
-            </button>
-          </li>
-          <li>
-            <button
-              className="w-full text-left flex items-center p-2 hover:bg-gray-200 text-white hover:text-black rounded"
-              onClick={() => {
-                setActivePage("uploadproduct");
+                setActivePage("addproduct");
                 toggleSidebar(); // Close sidebar after selecting
               }}
             >
               <MdCloudUpload className="mr-2" />
-              Upload Product
+              Add Product
+            </button>
+          </li>
+          
+          <li>
+            <button
+              className="w-full text-left flex items-center p-2 hover:bg-gray-200 text-white hover:text-black rounded"
+              onClick={() => {
+                setActivePage("allproduct");
+                toggleSidebar(); 
+              }}
+            >
+              <FaProjectDiagram className="mr-2" />
+              All Product
             </button>
           </li>
           <li>

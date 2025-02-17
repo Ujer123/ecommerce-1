@@ -10,6 +10,7 @@ const Filters = ({ setFilteredProducts, filteredProducts = [], products = [] }) 
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [selectedColors, setSelectedColors] = useState([]);
 
+    
     const categories = ["Funky Jeans", "Shorts Jeans", "Trousers & Chinos", "Track Pants & Joggers"];
     const sizes = [28, 30, 32, 34, 36];
     const colors = ["Grey", "Green", "Blue", "Black", "White", "Brown"];

@@ -47,6 +47,7 @@ import Img58 from "../../assets/products/p5.8.webp";
 
 export const products = [
   {
+    
     id: 1,
     name: "Funky Jeans",
     size: 28,

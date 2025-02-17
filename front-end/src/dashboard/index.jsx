@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/AddProduct";
 
 import Profile from "./components/Profile";
 
-import DashboardImg from "../assets/images/4.png";
+import DashboardImg from "../assets/images/footerlogo.png";
 import { FaBars, FaTimes } from "react-icons/fa";
-import UploadProduct from "./components/UploadProduct";
+
+import AllProducts from "./components/AllProducts";
 
 const Index = () => {
-  const [activePage, setActivePage] = useState("dashboard");
-  const [userRole, setUserRole] = useState("execution");
+  const [activePage, setActivePage] = useState("addproduct");
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
 
   const userDetails = {
-    name: "rj surya",
-    email: "Manufacturer",
+    name: "Om Yadav",
+    email: "om@gmail.com",
     image: DashboardImg,
   };
 
@@ -43,10 +43,10 @@ const Index = () => {
 
   const renderPage = () => {
     switch (activePage) {
-      case "dashboard":
+      case "addproduct":
         return <Dashboard />;
-      case "uploadproduct":
-        return <UploadProduct />;
+        case "allproduct":
+        return <AllProducts />;
       case "profile":
         return <Profile />;
 
@@ -76,7 +76,7 @@ const Index = () => {
 
           {/* User Details */}
           <div>
-            <div className="flex">
+            <div className="flex text-end ">
               <h2 className="text-2xl font-bold mr-2 mt-2">{userDetails.name}</h2>
               <img src={userDetails.image} alt="" className="h-[50px] rounded-full" />
             </div>
