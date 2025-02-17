@@ -31,6 +31,20 @@ export const getProductById = createAsyncThunk(
     }
   }
 );
+export const deleteroductById = createAsyncThunk(
+  "products/deleteproductById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/deleteproduct/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching product by ID:", error.response);
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch product by ID"
+      );
+    }
+  }
+);
 
 export const addProduct = createAsyncThunk(
   "products/addProduct",
@@ -97,6 +111,18 @@ const productsSlice = createSlice({
         state.singleproduct = action.payload;
       })
       .addCase(getProductById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteroductById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteroductById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.singleproduct = action.payload;
+      })
+      .addCase(deleteroductById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

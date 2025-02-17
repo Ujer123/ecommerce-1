@@ -127,7 +127,7 @@ export default function UploadProduct() {
         ].map(({ name, label, options }) => (
           <div key={name} className="flex flex-col">
             <label className="text-base font-medium text-gray-700">{label}</label>
-            <select name={name} value={formData[name]} onChange={handleChange} className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300">
+            <select name={name} value={formData[name]} onChange={handleChange} required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300">
               <option value="">Select {label}</option>
               {options.map((option, idx) => (
                 <option key={idx} value={option.toLowerCase().replace(/ /g, "")}>{option}</option>
