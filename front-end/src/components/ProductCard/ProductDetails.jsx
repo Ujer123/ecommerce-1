@@ -132,7 +132,7 @@ const ProductPage = () => {
 
             {/* Product Details */}
             <div className="w-full md:w-[60%] px-6">
-              <div className="p-6 bg-white rounded-2xl shadow-lg border border-gray-200">
+              <div className="p-6 bg-white">
                 {/* Title & Description */}
                 <h2 className="text-3xl font-semibold text-gray-900 mb-3">{details.title}</h2>
                 <p className="text-gray-700 text-lg">{details.description}</p>
@@ -147,7 +147,7 @@ const ProductPage = () => {
                   <p className="px-3 py-2 bg-gray-100 text-gray-800 rounded-lg border border-gray-300">
                     In Piece
                   </p>
-                  <button className="bg-blue-600 text-white px-5 py-2 rounded-lg text-lg font-medium shadow-md hover:bg-blue-700 transition-all">
+                  <button className="bg-[#1E2747] text-white px-5 py-2 rounded-lg text-lg font-medium shadow-md hover:bg-[#2571B9] transition-all">
                     Get Best Price
                   </button>
                 </div>
@@ -200,7 +200,7 @@ const ProductPage = () => {
                   <button className="bg-gray-100 px-5 py-3 text-lg font-medium rounded-lg text-gray-900 border border-gray-300 hover:bg-gray-200 transition-all">
                     Request to Call
                   </button>
-                  <button className="bg-blue-600 text-white text-lg px-5 py-3 rounded-lg font-medium shadow-md hover:bg-blue-700 transition-all">
+                  <button className="bg-[#1E2747] text-white text-lg px-5 py-3 rounded-lg font-medium shadow-md hover:bg-[#2571B9] transition-all">
                     Send Enquiry
                   </button>
                 </div>
@@ -257,7 +257,7 @@ const ProductPage = () => {
 
     {/* Call-to-Action Button */}
     <div className="mt-4 flex justify-center">
-      <button className="bg-blue-600 text-white text-lg  px-8 py-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:bg-blue-700">
+      <button className="bg-[#1E2747] text-white text-lg  px-8 py-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#2571B9]">
         Yes! I am Interested
       </button>
     </div>

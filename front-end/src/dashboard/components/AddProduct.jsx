@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from '../../redux/slices/productReduer';
 
 export default function UploadProduct() {
@@ -89,77 +90,90 @@ export default function UploadProduct() {
     //   return;
     // }
     dispatch(addProduct(formData));
-    toast.success("Product added successfully!");
+   
+
+    toast.success("Product added successfully!", {
+      position: "top-right",
+      autoClose: 3000, // Closes in 3 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "light",
+    });
   };
 
   return (
+    
+    <>
+     <ToastContainer />
     <div className="max-w-full mx-auto p-8 rounded-2xl shadow-2xl bg-white">
-      <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Add Product Details</h1>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
-        {/* Category */}
-        <div className="flex flex-col">
-          <label className="text-base font-medium text-gray-700">Select Category</label>
-          <select name="category" value={formData.category} onChange={handleChange} className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300">
-            <option value="">Select Category</option>
-            <option value="funkyJeans">Funky Jeans</option>
-            <option value="shortsJeans">Shorts Jeans</option>
-            <option value="trousersChinos">Trousers & Chinos</option>
-            <option value="trackPants">Track Pants & Joggers</option>
+    <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Add Product Details</h1>
+    <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
+      {/* Category */}
+      <div className="flex flex-col">
+        <label className="text-base font-medium text-gray-700">Select Category</label>
+        <select name="category" value={formData.category} onChange={handleChange} required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300">
+          <option value="">Select Category</option>
+          <option value="funkyJeans">Funky Jeans</option>
+          <option value="shortsJeans">Shorts Jeans</option>
+          <option value="trousersChinos">Trousers & Chinos</option>
+          <option value="trackPants">Track Pants & Joggers</option>
+        </select>
+      </div>
+
+      {/* Product Name */}
+      <div className="flex flex-col">
+        <label className="text-base font-medium text-gray-700">Product Name</label>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter Product Name" required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300" />
+      </div>
+
+      {/* Additional Dropdowns */}
+      {[
+        { name: "moq", label: "Minimum Quantity Order", options: ["50", "100", "150", "200", "250", "300"] },
+        { name: "fabricType", label: "Fabric Type", options: ["Men Casual Jeans", "Kids Casual Jeans", "Men Fashion Jeans"] },
+        { name: "material", label: "Material", options: ["Denim Cotton", "Cotton Blend", "Cotton Denim", "Stretchable Denim"] },
+        { name: "application", label: "Application", options: ["Casual, Fashion, Multi Use", "Casual, Party, Multi Use", "Casual, Sports, Multi Use", "Casual, Clubwear, Multi Use"] },
+        { name: "gender", label: "Gender", options: ["Male", "Female"] },
+        { name: "season", label: "Season", options: ["Summer", "Fall", "Spring", "Winter"] },
+        { name: "feature", label: "Feature", options: ["Comfortable, Breathable, Stretchable", "Trendy, Comfortable, Stylish", "Multiple Pockets, Durable, Comfortable", "Soft, Easily Washable, Breathable"] },
+        { name: "uploadCategory", label: "Category to Upload", options: ["Recently Product", "Popular Product", "Top Products"] },
+      ].map(({ name, label, options }) => (
+        <div key={name} className="flex flex-col">
+          <label className="text-base font-medium text-gray-700">{label}</label>
+          <select name={name} value={formData[name]} onChange={handleChange} required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300">
+            <option value="">Select {label}</option>
+            {options.map((option, idx) => (
+              <option key={idx} value={option.toLowerCase().replace(/ /g, "")}>{option}</option>
+            ))}
           </select>
         </div>
+      ))}
 
-        {/* Product Name */}
-        <div className="flex flex-col">
-          <label className="text-base font-medium text-gray-700">Product Name</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter Product Name" className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300" />
+      {/* Text Inputs */}
+      {["colors", "pattern", "occasion"].map((field) => (
+        <div key={field} className="flex flex-col">
+          <label className="text-base font-medium text-gray-700">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+          <input type="text" name={field} value={formData[field]} onChange={handleChange} placeholder={`Enter ${field}`} required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300" />
         </div>
+      ))}
 
-        {/* Additional Dropdowns */}
-        {[
-          { name: "moq", label: "Minimum Quantity Order", options: ["50", "100", "150", "200", "250", "300"] },
-          { name: "fabricType", label: "Fabric Type", options: ["Men Casual Jeans", "Kids Casual Jeans", "Men Fashion Jeans"] },
-          { name: "material", label: "Material", options: ["Denim Cotton", "Cotton Blend", "Cotton Denim", "Stretchable Denim"] },
-          { name: "application", label: "Application", options: ["Casual, Fashion, Multi Use", "Casual, Party, Multi Use", "Casual, Sports, Multi Use", "Casual, Clubwear, Multi Use"] },
-          { name: "gender", label: "Gender", options: ["Male", "Female"] },
-          { name: "season", label: "Season", options: ["Summer", "Fall", "Spring", "Winter"] },
-          { name: "feature", label: "Feature", options: ["Comfortable, Breathable, Stretchable", "Trendy, Comfortable, Stylish", "Multiple Pockets, Durable, Comfortable", "Soft, Easily Washable, Breathable"] },
-          { name: "uploadCategory", label: "Category to Upload", options: ["Recently Product", "Popular Product", "Top Products"] },
-        ].map(({ name, label, options }) => (
-          <div key={name} className="flex flex-col">
-            <label className="text-base font-medium text-gray-700">{label}</label>
-            <select name={name} value={formData[name]} onChange={handleChange} required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300">
-              <option value="">Select {label}</option>
-              {options.map((option, idx) => (
-                <option key={idx} value={option.toLowerCase().replace(/ /g, "")}>{option}</option>
-              ))}
-            </select>
-          </div>
-        ))}
+      {/* Upload Additional Images */}
+      <label className="col-span-2 font-semibold">Upload Additional Images:
+        <input type="file" multiple accept="image/*" onChange={handleImageChange} required className="mt-2 p-3 border rounded-xl w-full" />
+      </label>
 
-        {/* Text Inputs */}
-        {["colors", "pattern", "occasion"].map((field) => (
-          <div key={field} className="flex flex-col">
-            <label className="text-base font-medium text-gray-700">{field.charAt(0).toUpperCase() + field.slice(1)}</label>
-            <input type="text" name={field} value={formData[field]} onChange={handleChange} placeholder={`Enter ${field}`} className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300" />
-          </div>
-        ))}
+      {/* Upload Hover Image */}
+      <label className="col-span-2 font-semibold">Upload Hover Image:
+        <input type="file" accept="image/*" onChange={handleHoverImageChange} required className="mt-2 p-3 border rounded-xl w-full" />
+      </label>
 
-
-        {/* Upload Additional Images */}
-        <label className="col-span-2 font-semibold">Upload Additional Images:
-          <input type="file" multiple accept="image/*" onChange={handleImageChange} className="mt-2 p-3 border rounded-xl w-full" />
-        </label>
-
-        {/* Upload Hover Image */}
-        <label className="col-span-2 font-semibold">Upload Hover Image:
-          <input type="file" accept="image/*" onChange={handleHoverImageChange} className="mt-2 p-3 border rounded-xl w-full" />
-        </label>
-
-        {/* Submit Button */}
-        <button type="submit" className="col-span-2 py-3 mt-4 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-all">
-          Submit Product
-        </button>
-      </form>
-    </div>
+      {/* Submit Button */}
+      <button type="submit" className="col-span-2 py-3 mt-4 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-all">
+        Submit Product
+      </button>
+    </form>
+  </div>
+    </>
   );
 }

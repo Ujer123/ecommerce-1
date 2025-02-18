@@ -98,7 +98,7 @@ const Blog = () => {
             </div>
 
             {/* Right Column */}
-            <div className="col-span-4 p-10 border-[1px] border-gray-300 bg-white shadow-2xl h-fit">
+            <div className="col-span-4 p-10 border-[1px] border-gray-300 bg-white shadow-2xl h-fit sticky top-0">
               {/* Small Intro */}
               <div className="uppercase font-bold text-md mb-10">
                 <p className="text-gray-700">We are Socialize</p>

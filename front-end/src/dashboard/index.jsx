@@ -8,6 +8,7 @@ import DashboardImg from "../assets/images/footerlogo.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 import AllProducts from "./components/AllProducts";
+import { ToastContainer } from "react-toastify";
 
 const Index = () => {
   const [activePage, setActivePage] = useState("addproduct");
@@ -56,6 +57,9 @@ const Index = () => {
   };
 
   return (
+    
+    <>
+       <ToastContainer />
     <div className="flex overflow-x-auto">
       {/* Sidebar */}
       <div ref={sidebarRef}>
@@ -88,6 +92,7 @@ const Index = () => {
         {renderPage()}
       </div>
     </div>
+    </>
   );
 };
 
