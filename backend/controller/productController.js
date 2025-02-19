@@ -60,6 +60,16 @@ const addProduct = async(req, res)=>{
       return res.status(500).json({ message: error.message });
     }
 }
+  const getPopularProducts = async(req, res) => {
+    try {
+      const menu = await productModal.find().sort({ createdAt: -1 });
+      return res
+        .status(200)
+        .json({ message: "Product fetched successfully", menu });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+}
 
 const getProductById = async (req, res) => {
   try {
@@ -84,4 +94,4 @@ const deleteProductById = async (req, res) => {
   }
 }
 
-module.exports={addProduct, getProducts, getProductById, deleteProductById}
+module.exports={addProduct, getProducts, getProductById, deleteProductById, getPopularProducts}
