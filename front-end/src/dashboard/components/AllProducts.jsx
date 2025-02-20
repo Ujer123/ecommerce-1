@@ -14,7 +14,7 @@ const AllProducts = () => {
 
   const data = Array.isArray(products) ? products : products.menu || [];
 
-  const deleteProduct = async(id) => {
+  const deleteProduct = async (id) => {
     await dispatch(deleteroductById(id))
     dispatch(getProducts())
     alert('Product deleted successfully')
@@ -39,20 +39,22 @@ const AllProducts = () => {
         </div>
 
         {data.map((product) => (
-          <div key={product.id} className="flex items-center p-1 border-b text-base text-gray-600">
-            <div className="w-20">
-              <img src={product.images[0]} alt={product.name} className="h-14 w-14 object-cover rounded" />
-            </div>
-            <div className="flex-1">{product.name}</div>
-            <div className="flex-1">{product.category}</div>
-            <div className="flex-1">{product.colors}</div>
-            <div className="flex-1">{product.gender}</div>
-            <div className="w-16 text-center">
-              <button 
-              onClick={() => deleteProduct(product._id)}
-               className="text-red-500 hover:text-red-700">
-                <FaTrash size={16} />
-              </button>
+          <div>
+            <div key={product.id} className="flex items-center p-1 border-b text-base text-gray-600">
+              <div className="w-20">
+                <img src={product.images[0]} alt={product.name} className="h-14 w-14 object-cover rounded" />
+              </div>
+              <div className="flex-1">{product.name}</div>
+              <div className="flex-1">{product.category}</div>
+              <div className="flex-1">{product.colors}</div>
+              <div className="flex-1">{product.gender}</div>
+              <div className="w-16 text-center">
+                <button
+                  onClick={() => deleteProduct(product._id)}
+                  className="text-red-500 hover:text-red-700">
+                  <FaTrash size={16} />
+                </button>
+              </div>
             </div>
           </div>
         ))}
