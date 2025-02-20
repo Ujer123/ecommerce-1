@@ -14,7 +14,7 @@ const AllProducts = () => {
 
   const data = Array.isArray(products) ? products : products.menu || [];
 
-  const deleteProduct = async(id) => {
+  const deleteProduct = async (id) => {
     await dispatch(deleteroductById(id))
     dispatch(getProducts())
 
