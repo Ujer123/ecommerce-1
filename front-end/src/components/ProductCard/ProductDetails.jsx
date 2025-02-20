@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { products } from "./data";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -14,6 +15,12 @@ const ProductPage = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const visibleThumbnails = 6;
+  const dispatch = useDispatch();
+
+  useEffect(()=> {
+    
+  }
+  )
 
   useEffect(() => {
     setIsLoading(true);
