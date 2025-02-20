@@ -60,16 +60,38 @@ const addProduct = async(req, res)=>{
       return res.status(500).json({ message: error.message });
     }
 }
-  const getPopularProducts = async(req, res) => {
-    try {
-      const menu = await productModal.find().sort({ createdAt: -1 });
-      return res
-        .status(200)
-        .json({ message: "Product fetched successfully", menu });
-    } catch (error) {
+const getPopularProducts = async (req, res) => {
+  try {
+      const popularCategory = "popularproduct";
+      const popularProducts = await productModal.find({ uploadCategory: popularCategory });
+      if (popularProducts.length === 0) {
+          return res.status(404).json({ message: "No popular products found" });
+      }
+
+      return res.status(200).json({ 
+          message: "Popular products fetched successfully", 
+          products: popularProducts 
+      });
+  } catch (error) {
       return res.status(500).json({ message: error.message });
-    }
-}
+  }
+};
+const getTopProducts = async (req, res) => {
+  try {
+      const topCategory = "topproduct";
+      const topProducts = await productModal.find({ uploadCategory: topCategory });
+      if (topProducts.length === 0) {
+          return res.status(404).json({ message: "No top products found" });
+      }
+
+      return res.status(200).json({ 
+          message: "top products fetched successfully", 
+          products: topProducts 
+      });
+  } catch (error) {
+      return res.status(500).json({ message: error.message });
+  }
+};
 
 const getProductById = async (req, res) => {
   try {
@@ -94,4 +116,4 @@ const deleteProductById = async (req, res) => {
   }
 }
 
-module.exports={addProduct, getProducts, getProductById, deleteProductById, getPopularProducts}
+module.exports={addProduct, getProducts, getProductById, deleteProductById, getPopularProducts, getTopProducts}

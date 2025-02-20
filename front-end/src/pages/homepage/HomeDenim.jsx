@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom"
 import MenImg1 from "../../assets/products/p1.1.webp";
 import KidsImg1 from "../../assets/products/p2.1.webp";
@@ -8,8 +8,20 @@ import Img11 from "../../assets/images/what-we-do1.jpg";
 import Img12 from "../../assets/images/what-we-do2.jpg";
 import Img13 from "../../assets/images/what-we-do3.jpg";
 import ClientReview from './ClientReview';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTopProducts } from '../../redux/slices/productReduer';
 
 const HomeDenim = () => {
+
+  const { topproducts } = useSelector((state) => state.product)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTopProducts())
+  }, [dispatch]);
+
+  console.log(topproducts)
+
 
   const items = [
     {
