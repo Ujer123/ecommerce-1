@@ -17,11 +17,9 @@ const AllProducts = () => {
   const deleteProduct = async(id) => {
     await dispatch(deleteroductById(id))
     dispatch(getProducts())
-    alert('Product deleted successfully')
 
   }
 
-  console.log(data, 'products are here')
 
   return (
     <div className="bg-white shadow rounded-2xl">
@@ -41,7 +39,7 @@ const AllProducts = () => {
         {data.map((product) => (
           <div key={product.id} className="flex items-center p-1 border-b text-base text-gray-600">
             <div className="w-20">
-              <img src={product.images[0]} alt={product.name} className="h-14 w-14 object-cover rounded" />
+              <img src={product?.hoverimage} alt={product.name} className="h-14 w-14 object-cover rounded" />
             </div>
             <div className="flex-1">{product.name}</div>
             <div className="flex-1">{product.category}</div>
