@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from "react-router-dom"
 import MenImg1 from "../../assets/products/p1.1.webp";
 import KidsImg1 from "../../assets/products/p2.1.webp";
@@ -10,7 +10,8 @@ import Img13 from "../../assets/images/what-we-do3.jpg";
 import ClientReview from './ClientReview';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPopularProducts, getTopProducts } from '../../redux/slices/productReduer';
-
+import Slider from "react-slick";
+import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 const HomeDenim = () => {
 
   const { topproducts, popuarproducts } = useSelector((state) => state.product)
@@ -27,6 +28,31 @@ const HomeDenim = () => {
 
   console.log(popular, 'popular')
 
+  const sliderRef = useRef(null);
+
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    autoplay: true, // Enable autoplay
+    autoplaySpeed: 3000, // Adjust speed (3 seconds)
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
 
   const items = [
     {
@@ -50,33 +76,55 @@ const HomeDenim = () => {
   ];
   return (
     <>
-      {/* Our Top Products */}
-      <div className='text-center py-6'>
+      <div className="relative text-center py-6">
         <div className="w-fit mx-auto">
           <h1 className="text-3xl text-center text-gray-900">Our <span className="text-[#27497b] font-bold">Top Products</span>
           </h1>
           <div className="border-b-2 border-black w-[80%] mx-auto mt-4"></div>
         </div>
-        <div className="mx-auto sm:py-10">
-          <div className="grid md:grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {top.slice(0,4).map((item, index) => (
-            
-            <Link to={"/"} key={index} className="group">
-              <img src={item?.images[0]} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">{item.name}</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
-              
-            ))}
+        {/* Header with Navigation Buttons */}
+        <div className="flex justify-end items-center mx-auto px-4">
+          <div className="flex gap-3">
+            <button
+              className="bg-gray-800 text-white p-2 hover:bg-gray-600 transition"
+              onClick={() => sliderRef.current.slickPrev()}
+            >
+              < FaCircleChevronLeft size={30} />
+            </button>
+            <button
+              className="bg-gray-800 text-white p-2 hover:bg-gray-600 transition"
+              onClick={() => sliderRef.current.slickNext()}
+            >
+              <FaCircleChevronRight size={30} />
+            </button>
           </div>
+        </div>
+
+        <div className="md:py-4 sm:py-10">
+          <Slider ref={sliderRef} {...sliderSettings}>
+            {top.slice(0, 8).map((item, index) => (
+              <div key={index} className="px-2">
+                <Link to={"/"} className="group">
+                  <img
+                    src={item?.images[0]}
+                    alt="Product"
+                    className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]"
+                  />
+                  <h3 className="mt-4 text-lg font-bold">{item.name}</h3>
+                  <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
+                    Get More →
+                  </button>
+                </Link>
+              </div>
+            ))}
+          </Slider>
         </div>
       </div>
 
+
       {/* About Us Component */}
 
-      <div className="bg-gray-300 py-20 px-5 lg:px-20">
+      < div className="bg-gray-300 py-20 px-5 lg:px-20" >
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-16">
           {/* Text Section */}
           <div className="lg:col-span-7">
@@ -121,10 +169,10 @@ const HomeDenim = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
       {/* What We Do  */}
-      <div className="py-10">
+      < div className="py-10" >
         <div className="w-fit mx-auto">
           <h1 className="text-3xl text-center text-gray-900">
             What  <span className="text-[#27497b] font-bold">We Do?</span>
@@ -154,11 +202,11 @@ const HomeDenim = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div >
 
       {/* Explore Every part */}
 
-      <div className='mt-6'>
+      < div className='mt-6' >
         <div className='explore-every-part bg-cover bg-center'>
           <div className="item-center w-[90%] mx-auto px-6 lg:px-20 xl:px-36 py-10">
             <div className='grid grid-cols-12 gap-6 lg:gap-20'>
@@ -180,34 +228,55 @@ const HomeDenim = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
 
       {/* Our Top Products */}
-      <div className='text-center py-6'>
+      < div className='text-center py-6' >
         <div className="w-fit mx-auto">
           <h1 className="text-3xl text-center text-gray-900">Our <span className="text-[#27497b] font-bold">Popular Products</span>
           </h1>
           <div className="border-b-2 border-black w-[80%] mx-auto mt-4"></div>
         </div>
-        <div className="mx-auto sm:py-10">
-          <div className="grid md:grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {popular.slice(0,4).map((item, index) => (
-            
-            <Link to={"/"} key={index} className="group">
-              <img src={item?.images[0]} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">{item.name}</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
-              
-            ))}
+
+        {/* Header with Navigation Buttons */}
+        <div className="flex justify-end items-center mx-auto px-4">
+          <div className="flex gap-3">
+            <button
+              className="bg-gray-800 text-white p-2 hover:bg-gray-600 transition"
+              onClick={() => sliderRef.current.slickPrev()}
+            >
+              < FaCircleChevronLeft size={30} />
+            </button>
+            <button
+              className="bg-gray-800 text-white p-2 hover:bg-gray-600 transition"
+              onClick={() => sliderRef.current.slickNext()}
+            >
+              <FaCircleChevronRight size={30} />
+            </button>
           </div>
         </div>
-      </div>
+
+        <div className="mx-auto sm:py-10">
+          <Slider ref={sliderRef} {...sliderSettings}>
+
+            {popular.slice(0, 8).map((item, index) => (
+
+              <Link to={"/"} key={index} className="group px-2">
+                <img src={item?.images[0]} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
+                <h3 className="mt-4 text-lg font-bold">{item.name}</h3>
+                <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
+                  Get  More →
+                </button>
+              </Link>
+
+            ))}
+
+          </Slider>
+        </div>
+      </div >
 
       {/* Testomonials Section */}
-      <ClientReview />
+      < ClientReview />
 
 
     </>
