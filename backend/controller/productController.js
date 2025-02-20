@@ -19,6 +19,7 @@ const addProduct = async(req, res)=>{
       uploadCategory,
       images,
       hoverimage,
+      size,
     } = req.body;
 
     // Create the product in the database
@@ -38,6 +39,7 @@ const addProduct = async(req, res)=>{
       uploadCategory,
       images,
       hoverimage,
+      size,
     });
 
     return res.status(201).json({

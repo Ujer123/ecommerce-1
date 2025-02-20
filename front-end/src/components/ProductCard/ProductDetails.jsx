@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { products } from "./data";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductById } from "../../redux/slices/productReduer";
 
 const ProductPage = () => {
-  const { productId } = useParams();
+  const { singleproduct } = useSelector((state) => state.product)
+  const params  = useParams();
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [thumbnails, setThumbnails] = useState([]);
@@ -17,35 +19,31 @@ const ProductPage = () => {
   const visibleThumbnails = 6;
   const dispatch = useDispatch();
 
-  useEffect(()=> {
-    
-  }
-  )
+  const id = params.productId
 
+
+  useEffect(()=> {
+    dispatch(getProductById(id))
+  }, [dispatch])
+
+  const oneproduct =  singleproduct.menu ;
+
+  console.log(oneproduct, 'd is here')
   useEffect(() => {
     setIsLoading(true);
     setError(null);
 
-    const foundProduct = products.find(
-      (p) => p.id === parseInt(productId, 10)
-    );
-
-    if (foundProduct) {
-      setProduct(foundProduct);
-
-      if (foundProduct.images && foundProduct.images.length > 0) {
-        setMainImage(foundProduct.images[0]); // Use first image as main
-        setThumbnails(foundProduct.images);    // All images as thumbnails
-      } else {
-        console.warn("No images found for this product.");
-        setError("No images found for this product.");
-      }
+    if (oneproduct) {
+      // Set product images from API data
+      const productImages = oneproduct.images || [];
+      setMainImage(productImages[0]); // Use first image as main
+      setThumbnails(productImages);    // All images as thumbnails
     } else {
       setError("Product not found.");
     }
 
     setIsLoading(false);
-  }, [productId]);
+  }, [oneproduct]);
 
   const nextThumbnails = () => {
     if (startIndex + visibleThumbnails < thumbnails.length) {
@@ -73,12 +71,9 @@ const ProductPage = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  if (!product) {
+  if (!oneproduct) {
     return <div>Product data not available.</div>;
   }
-
-  // Destructure details from product
-  const { details } = product;
 
   return (
     <>
@@ -86,18 +81,18 @@ const ProductPage = () => {
         <div className="w-[100%] mx-auto px-4 py-8">
           <div className="flex flex-wrap -mx-4">
             {/* Product Images */}
-            <div className="w-full md:w-[40%] px-4 mb-8 relative flex gap-4">
+            <div className="w-full md:w-[40%] flex-col-reverse md:flex-row px-4 mb-8 relative flex gap-4">
               {/* Thumbnails */}
-              <div className="flex flex-col items-center">
+              <div className="flex flex-row md:flex-col items-center">
                 <button
                   onClick={prevThumbnails}
                   disabled={startIndex === 0}
-                  className="text-4xl disabled:opacity-80"
+                  className="text-4xl disabled:opacity-80 transform rotate-[270deg] md:rotate-0"
                 >
                   <FaAngleUp />
                 </button>
 
-                <div className="flex flex-col gap-2 justify-center items-center">
+                <div className="flex flex-row md:flex-col gap-2 justify-center items-center">
                   {thumbnails
                     .slice(startIndex, startIndex + visibleThumbnails)
                     .map((thumbnail, index) => (
@@ -106,7 +101,7 @@ const ProductPage = () => {
                         src={thumbnail}
                         loading="lazy"
                         alt={`Thumbnail ${index + startIndex + 1}`}
-                        className="w-14 h-16 sm:w-16 sm:h-20 object-cover rounded-md cursor-pointer opacity-100 hover:opacity-100 transition duration-300"
+                        className="md:w-14 md:h-16 sm:w-14 sm:h-16 object-cover rounded-md cursor-pointer opacity-100 hover:opacity-100 transition duration-300"
                         onMouseEnter={() => setMainImage(thumbnail)}
                       />
                     ))}
@@ -115,7 +110,7 @@ const ProductPage = () => {
                 <button
                   onClick={nextThumbnails}
                   disabled={startIndex + visibleThumbnails >= thumbnails.length}
-                  className="text-4xl disabled:opacity-80"
+                  className="text-4xl disabled:opacity-80 transform rotate-[270deg] md:rotate-0"
                 >
                   <FaAngleDown />
                 </button>
@@ -140,9 +135,8 @@ const ProductPage = () => {
             {/* Product Details */}
             <div className="w-full md:w-[60%] px-6">
               <div className="p-6 bg-white">
-                {/* Title & Description */}
-                <h2 className="text-3xl font-semibold text-gray-900 mb-3">{details.title}</h2>
-                <p className="text-gray-700 text-lg">{details.description}</p>
+                <h2 className="text-3xl font-semibold text-gray-900 mb-3">{oneproduct.name}</h2>
+                <p className="text-gray-700 text-lg">{oneproduct.moq} Piece (MOQ)</p>
 
                 {/* Quantity & Price Section */}
                 <div className="flex items-center my-5 gap-4">
@@ -164,35 +158,25 @@ const ProductPage = () => {
                   <tbody>
                     <tr className="border-b">
                       <td className="py-3 font-semibold text-lg text-gray-800">Business Type :</td>
-                      <td>{details.businessType}</td>
+                      <td>	Manufacturer, Exporter, Supplier, Retailer, Trader</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 font-semibold text-lg text-gray-800">Size :</td>
-                      <td>
-                        <div className="flex flex-wrap gap-3 my-2">
-                          {details.availableSizes.map((size) => (
-                            <button
-                              key={size}
-                              type="button"
-                              className="w-12 h-10 border border-gray-300 rounded-lg hover:border-blue-600 hover:bg-blue-50 text-gray-800 font-medium flex items-center justify-center transition-all"
-                            >
-                              {size}
-                            </button>
-                          ))}
-                        </div>
-                      </td>
+                      <td className="flex items-center gap-4 py-4">{oneproduct.size.map((item) => (
+                        <p className="border px-2 py-1">{item}</p>
+                      ))}</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 font-semibold text-lg text-gray-800">Type :</td>
-                      <td>{details.type}</td>
+                      <td>{oneproduct.fabricType}</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 font-semibold text-lg text-gray-800">Material :</td>
-                      <td>{details.material}</td>
+                      <td>{oneproduct.material}</td>
                     </tr>
                     <tr className="border-b">
                       <td className="py-3 font-semibold text-lg text-gray-800">Preferred Buyer From :</td>
-                      <td>{details.preferredBuyer}</td>
+                      <td>All Over World</td>
                     </tr>
                   </tbody>
                 </table>
@@ -247,15 +231,38 @@ const ProductPage = () => {
     <div className="overflow-hidden rounded-lg border border-blue-300 shadow-md">
       <table className="w-full text-lg border-collapse">
         <tbody>
-          {details.additionalInfo.map((info, index) => (
-            <tr
-              key={index}
-              className={`border-b border-blue-200 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
-            >
-              <td className="px-6 py-3 font-medium text-gray-800">{info.label}</td>
-              <td className="px-6 py-3 text-gray-700">{info.value}</td>
-            </tr>
-          ))}
+          <tr className="border-b border-blue-200 bg-gray-50">
+            <td className="px-6 py-3 font-medium text-gray-800">Application</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.application}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-gray-50">
+            <td className="px-6 py-3 font-medium text-gray-800">Color</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.colors}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-gray-50">
+            <td className="px-6 py-3 font-medium text-gray-800">Gender</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.gender}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-white">
+            <td className="px-6 py-3 font-medium text-gray-800">Season</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.season}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-gray-50">
+            <td className="px-6 py-3 font-medium text-gray-800">Features</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.feature}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-gray-50">
+            <td className="px-6 py-3 font-medium text-gray-800">Pattern</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.pattern}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-white">
+            <td className="px-6 py-3 font-medium text-gray-800">Occasion</td>
+            <td className="px-6 py-3 text-gray-700">{oneproduct.occasion}</td>
+          </tr>
+          <tr className="border-b border-blue-200 bg-white">
+            <td className="px-6 py-3 font-medium text-gray-800">Country of Origin</td>
+            <td className="px-6 py-3 text-gray-700">India</td>
+          </tr>
         </tbody>
       </table>
     </div>

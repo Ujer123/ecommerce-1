@@ -20,7 +20,8 @@ export default function UploadProduct() {
     occasion: "",
     uploadCategory: "",
     images: [],
-    hoverimage: null
+    hoverimage: null,
+    size: [],
   });
 
   const dispatch = useDispatch();
@@ -81,6 +82,15 @@ export default function UploadProduct() {
       toast.error("Failed to upload image to ImgBB.");
       return null;
     }
+  };
+
+  const handleSizeChange = (size) => {
+    setFormData((prev) => ({
+      ...prev,
+      size: prev.size.includes(size)
+        ? prev.size.filter((s) => s !== size)
+        : [...prev.size, size]
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -157,6 +167,24 @@ export default function UploadProduct() {
           <input type="text" name={field} value={formData[field]} onChange={handleChange} placeholder={`Enter ${field}`} required className="p-3 border rounded-lg focus:ring-2 focus:ring-blue-300" />
         </div>
       ))}
+      {/*  */}
+
+      <div className="col-span-2">
+        <label className="text-base font-medium text-gray-700 block mb-2">Size</label>
+        <div className="flex gap-4 flex-wrap">
+          {['28', '30', '32', '34', '36', '38'].map((size) => (
+            <label key={size} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={formData.size.includes(size)}
+                onChange={() => handleSizeChange(size)}
+                className="w-4 h-4"
+              />
+              {size}
+            </label>
+          ))}
+        </div>
+      </div>
 
       {/* Upload Additional Images */}
       <label className="col-span-2 font-semibold">Upload Additional Images:
