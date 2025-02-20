@@ -9,18 +9,23 @@ import Img12 from "../../assets/images/what-we-do2.jpg";
 import Img13 from "../../assets/images/what-we-do3.jpg";
 import ClientReview from './ClientReview';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTopProducts } from '../../redux/slices/productReduer';
+import { getPopularProducts, getTopProducts } from '../../redux/slices/productReduer';
 
 const HomeDenim = () => {
 
-  const { topproducts } = useSelector((state) => state.product)
+  const { topproducts, popuarproducts } = useSelector((state) => state.product)
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getTopProducts())
+    dispatch(getPopularProducts())
   }, [dispatch]);
 
-  console.log(topproducts)
+  const popular = Array.isArray(popuarproducts) ? popuarproducts : popuarproducts.products || [];
+  const top = Array.isArray(topproducts) ? topproducts : topproducts.products || [];
+
+
+  console.log(popular, 'popular')
 
 
   const items = [
@@ -54,34 +59,17 @@ const HomeDenim = () => {
         </div>
         <div className="mx-auto sm:py-10">
           <div className="grid md:grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            <Link to={"/"} className="group">
-              <img src={MenImg1} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Track Pants & Joggers</h3>
+          {top.slice(0,4).map((item, index) => (
+            
+            <Link to={"/"} key={index} className="group">
+              <img src={item?.images[0]} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
+              <h3 className="mt-4 text-lg font-bold">{item.name}</h3>
               <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
                 Get  More →
               </button>
             </Link>
-            <Link to={""} className="group">
-              <img src={WomenImg1} alt="Olive " className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Trousers & Chinos</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
-            <Link to={""} className="group">
-              <img src={KidsImg1} alt="Person" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Shorts Jeans</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
-            <Link to={""} className="group">
-              <img src={woImg1} alt="Person" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Funky Jeans</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
+              
+            ))}
           </div>
         </div>
       </div>
@@ -203,34 +191,17 @@ const HomeDenim = () => {
         </div>
         <div className="mx-auto sm:py-10">
           <div className="grid md:grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            <Link to={"/"} className="group">
-              <img src={MenImg1} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Track Pants & Joggers</h3>
+            {popular.slice(0,4).map((item, index) => (
+            
+            <Link to={"/"} key={index} className="group">
+              <img src={item?.images[0]} alt="Tall" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
+              <h3 className="mt-4 text-lg font-bold">{item.name}</h3>
               <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
                 Get  More →
               </button>
             </Link>
-            <Link to={""} className="group">
-              <img src={WomenImg1} alt="Olive " className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Trousers & Chinos</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
-            <Link to={""} className="group">
-              <img src={KidsImg1} alt="Person" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Shorts Jeans</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
-            <Link to={""} className="group">
-              <img src={woImg1} alt="Person" className="aspect-square w-full rounded-lg bg-gray-200 group-hover:opacity-75 xl:aspect-[7/8]" />
-              <h3 className="mt-4 text-lg font-bold">Funky Jeans</h3>
-              <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full  hover:bg-blue-700 transition">
-                Get  More →
-              </button>
-            </Link>
+              
+            ))}
           </div>
         </div>
       </div>
