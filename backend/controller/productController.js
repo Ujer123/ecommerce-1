@@ -78,7 +78,7 @@ const getPopularProducts = async (req, res) => {
 };
 const getTopProducts = async (req, res) => {
   try {
-      const topCategory = "topproduct";
+      const topCategory = "topproducts";
       const topProducts = await productModal.find({ uploadCategory: topCategory });
       if (topProducts.length === 0) {
           return res.status(404).json({ message: "No top products found" });
