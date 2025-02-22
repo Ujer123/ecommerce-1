@@ -46,9 +46,9 @@ const AllProducts = () => {
             <div className="flex-1">{product.colors}</div>
             <div className="flex-1">{product.gender}</div>
             <div className="w-16 text-center">
-              <button 
-              onClick={() => deleteProduct(product._id)}
-               className="text-red-500 hover:text-red-700">
+              <button
+                onClick={() => deleteProduct(product._id)}
+                className="text-red-500 hover:text-red-700">
                 <FaTrash size={16} />
               </button>
             </div>
