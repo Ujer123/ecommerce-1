@@ -1,35 +1,40 @@
 const mongoose = require("mongoose");
 
+<<<<<<< HEAD
 const productSchema = mongoose.Schema({
     name: {
+=======
+const productSchema = new mongoose.Schema({
+    category: {
+>>>>>>> 587f598af6e267fc94d018fd4e87a2aae077143b
         type: String,
         required: true
     },
-    title: {
+    name: {
       type: String,
       required: true
     },
-    size: {
+    moq: {
         type: String,
         required: true
     },
-    price: {
-        type: Number,
+    fabricType: {
+        type: String,
         required: true
     },
-    discount: {
-        type: Number,
+    material: {
+        type: String,
         default: 0
     },
-    description: {
+    application: {
         type: String,
         required: true
     },
-    color: {
+    colors: {
         type: String,
         required: true
     },
-    image: {
+    images: {
         type: Array,
         required: true,
     },
@@ -37,10 +42,10 @@ const productSchema = mongoose.Schema({
       type: String,
       required: true,
     },
-    material: {
+    gender: {
         type: String,
       },
-    application: {
+    season: {
         type: String,
         required: true,
       },
@@ -52,20 +57,24 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
       },
-    pattern: {
+      feature: {
         type: String,
         required: true,
       },
-    occasion: {
+   pattern: {
         type: String,
         required: true,
       },
-    type: {
+      occasion: {
         type: String,
         required: true,
       },
-    businesstype: {
+   uploadCategory: {
         type: String,
+        required: true,
+      },
+   size: {
+        type: Array,
         required: true,
       },
 

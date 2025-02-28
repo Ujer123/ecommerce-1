@@ -6,10 +6,10 @@ const HomePage = () => {
 
   return (
     <>
- <div className='w-[95%] mx-auto'>  
- <HomeSlider />
- <HomeDenim />
- </div>
+      <div className='w-[95%] mx-auto'>
+        <HomeSlider />
+        <HomeDenim />
+      </div>
 
     </>
   )
