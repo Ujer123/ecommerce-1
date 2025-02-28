@@ -19,7 +19,7 @@ app.use("/products", express.static("upload/products"));
 
 db();
 
-app.use("/api", productRoute)  
+app.use("/product", productRoute)  
 
 // Start server
 const PORT = process.env.PORT || 8000;

@@ -1,4 +1,3 @@
-import React from 'react';
 import PartnerImg from '../../assets/images/ourpartnerbanner.jpg';
 import Img1 from '../../assets/images/4.png';
 import Img2 from '../../assets/images/5.png';

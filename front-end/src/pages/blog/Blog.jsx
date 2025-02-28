@@ -1,4 +1,3 @@
-import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import Blog1 from "../../assets/images/what-we-do1.jpg";
 import BlogBanner from "../../assets/images/blog-banner.webp";

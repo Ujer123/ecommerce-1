@@ -1,4 +1,3 @@
-import React from 'react';
 import ContactBanner from "../../assets/images/contactbanner.jpg";
 import { CiMail } from "react-icons/ci";
 import { FaPhoneAlt, FaFacebook, FaInstagram } from "react-icons/fa";
@@ -48,7 +47,7 @@ const ContactUs = () => {
                             <li className="flex items-center">
                                 <FaLocationDot className='text-xl text-white' />
                                 <p className="text-sm text-gray-300 ml-4">
-                                    Ghaziabad-201102, UP, INDIA
+                                    Dongri-400003, Mumbai, INDIA
                                 </p>
                             </li>
                         </ul>

@@ -56,13 +56,22 @@ const addProduct = async(req, res)=>{
 
   const getProducts = async(req, res) => {
     try {
-      const menu = await productModal.find().sort({ createdAt: -1 });
-      return res
-        .status(200)
-        .json({ message: "Product fetched successfully", menu });
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
+      const products = await productModal.find();
+
+      res.json({
+          code: 200,
+          remark: 'success',
+          data: products,
+      });
+  }catch(error){
+      console.log(error);
+      res.status(500);
+      res.json({
+          code: 500,
+          remark: 'failed',
+      });
+      
+  }
 }
 
 const getProductById = async (req, res) => {

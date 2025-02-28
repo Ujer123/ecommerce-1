@@ -1,4 +1,3 @@
-import React from 'react';
 import Home1 from "../../assets/images/home1.webp";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

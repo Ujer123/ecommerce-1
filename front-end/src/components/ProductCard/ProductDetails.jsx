@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { products } from "./data";
+// import { products } from "./data";
 import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+import axios from "axios";
 
 const ProductPage = () => {
   const { productId } = useParams();
+  const [cloth, setCloth] = useState([]);
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [thumbnails, setThumbnails] = useState([]);
@@ -15,11 +17,28 @@ const ProductPage = () => {
   const [startIndex, setStartIndex] = useState(0);
   const visibleThumbnails = 6;
 
+
+  const fetchCategories = async () => {
+    axios.get('http://localhost:8000/product')
+    .then(res=>{
+        setCloth(res.data.data)
+        console.log(res.data.data);        
+    })
+    .catch(err=>{
+        console.log('Error is fetch: ', err);
+        
+    })
+}
+
+useEffect(() => {
+    fetchCategories()
+}, [])
+
   useEffect(() => {
     setIsLoading(true);
     setError(null);
 
-    const foundProduct = products.find(
+    const foundProduct = cloth.find(
       (p) => p.id === parseInt(productId, 10)
     );
 

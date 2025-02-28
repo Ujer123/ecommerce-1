@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from "react-router-dom"
 import MenImg1 from "../../assets/products/p1.1.webp";
 import KidsImg1 from "../../assets/products/p2.1.webp";

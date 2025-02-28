@@ -3,17 +3,38 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Filters = ({ setFilteredProducts, filteredProducts = [], products = [] }) => {
+    // const [cloth, setCloth] = useState([])
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const [isSizeOpen, setIsSizeOpen] = useState(false);
     const [isColorOpen, setIsColorOpen] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [selectedColors, setSelectedColors] = useState([]);
+    // const [categories, setCategories] = useState('')
+    // const [sizes, setSizes] = useState('')
+    // const [colors, setColors] = useState('')
 
     
     const categories = ["Funky Jeans", "Shorts Jeans", "Trousers & Chinos", "Track Pants & Joggers"];
     const sizes = [28, 30, 32, 34, 36];
     const colors = ["Grey", "Green", "Blue", "Black", "White", "Brown"];
+
+    // const fetchCategories = async () => {
+    //     axios.get('http://localhost:8000/product')
+    //     .then(res=>{
+    //         setCloth(res.data.data)
+    //         console.log(res.data.data);
+            
+    //     })
+    //     .catch(err=>{
+    //         console.log('Error is fetch: ', err);
+            
+    //     })
+    // }
+
+    // useEffect(() => {
+    //     fetchCategories()
+    // }, [])
 
     const toggleSelection = (setSelected, value, selectedArray) => {
         setSelected(
@@ -118,24 +139,24 @@ const Filters = ({ setFilteredProducts, filteredProducts = [], products = [] }) 
                 <h2 className="text-2xl font-bold text-gray-800 mb-8">Products</h2>
                 <div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-4 gap-4 sm:px-0 md:px-4">
                     {filteredProducts.length > 0 ? (
-                        filteredProducts.map((product) => (
-                            <div key={product.id} className="border sm:rounded-none md:rounded-2xl shadow-sm text-center overflow-hidden">
-                                <Link to={`/product-details/${product.id}`}>
+                        filteredProducts.map((item) => (
+                             <div key={item.id} className="border sm:rounded-none md:rounded-2xl shadow-sm text-center overflow-hidden">
+                                <Link to={`/product-details/${item.id}`}>
                                     <div className="w-full overflow-hidden group">
                                         {/* Image Container */}
                                         <div className="relative w-full">
                                             {/* Default Image */}
                                             <img
                                             loading="lazy"
-                                                src={product.images[2]}
-                                                alt={product.name}
+                                                src={item.images[0]}
+                                                alt={item.name}
                                                 className="w-full object-cover object-top aspect-[59/70] transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0"
                                             />
                                             {/* Hover Image */}
                                             <img
                                             loading="lazy"
-                                                src={product.hoverImg}
-                                                alt={product.name}
+                                                src={item.hoverImg}
+                                                alt={item.name}
                                                 className="absolute top-0 left-0 w-full object-cover object-top aspect-[59/70] transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100"
                                             />
                                         </div>
@@ -143,7 +164,7 @@ const Filters = ({ setFilteredProducts, filteredProducts = [], products = [] }) 
 
                                     {/* Product Name & Button */}
                                     <div className=" sm:bg-white md:bg-[#efe7e2] py-2">
-                                        <span className="text-gray-900 sm:text-sm md:text-base font-semibold">{product.name}</span><br />
+                                        <span className="text-gray-900 sm:text-sm md:text-base font-semibold">{item.title}</span><br />
                                         <button className="bg-blue-500 text-white px-4 w-[80%] mx-auto py-2 text-sm font-medium rounded-lg hover:bg-blue-600 transition-all duration-300">
                                             View Now
                                         </button>
@@ -155,8 +176,8 @@ const Filters = ({ setFilteredProducts, filteredProducts = [], products = [] }) 
                         <p className="text-center col-span-3 text-gray-500">No products found.</p>
                     )}
                 </div>
-
             </div>
+            
         </div>
     );
 };

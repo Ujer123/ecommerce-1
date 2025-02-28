@@ -2,8 +2,15 @@ const { addProduct, getProducts, getProductById } = require("../controller/produ
 
 const router= require("express").Router();
 
-router.post("/addproduct", addProduct);
-router.get("/getproduct", getProducts);
-router.get("/product/:id", getProductById);
+router.use((req, res, next) => {
+    req.db = router.productsDB;
+    next();
+});
+
+router.route('/')
+    .post(addProduct)
+    .get(getProducts);
+
+router.put("/product/:id", getProductById);
 
 module.exports=router
